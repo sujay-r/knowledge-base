@@ -3,6 +3,7 @@ client<llm> GPT4o {
     options {
         model "gpt-4o"
         api_key env.OPENAI_API_KEY
+        temperature 0.0
         supports_streaming false
     }
 }

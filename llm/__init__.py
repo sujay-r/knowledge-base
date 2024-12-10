@@ -34,7 +34,8 @@ def extract_attributes_of_entity_from_text(
 def process_attribute(attr: Attribute) -> dict:
     return {
         "name": attr.name,
-        "value": map_value_to_data_type(attr.value, attr.data_type),
+        "value": attr.value,  # map_value_to_data_type(attr.value, attr.data_type),
+        "data_type": attr.data_type.value,
     }
 
 
