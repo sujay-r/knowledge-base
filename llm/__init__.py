@@ -16,13 +16,6 @@ datatype2func = {
 }
 
 
-def extract_entities_from_text(text: str) -> List[dict]:
-    kg_output = b.ExtractEntities(text)
-    entities = [process_entity(entity) for entity in kg_output.entities]
-
-    return entities
-
-
 def extract_entity_bases_from_text(text: str) -> List[EntityBase]:
     entity_bases = b.ExtractEntityBases(text)
     return entity_bases
