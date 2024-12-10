@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 from .baml_client import b
-from .baml_client.types import Attribute, DataType, Entity, EntityBase
+from .baml_client.types import Attribute, DataType, EntityBase
 
 
 datatype2func = {
@@ -23,10 +23,9 @@ def extract_entities_from_text(text: str) -> List[dict]:
     return entities
 
 
-def extract_entity_bases_from_text(text: str) -> List[dict]:
+def extract_entity_bases_from_text(text: str) -> List[EntityBase]:
     entity_bases = b.ExtractEntityBases(text)
-    entities = [entity.model_dump(mode="python") for entity in entity_bases]
-    return entities
+    return entity_bases
 
 
 def extract_attributes_of_entity_from_text(
@@ -37,15 +36,6 @@ def extract_attributes_of_entity_from_text(
         process_attribute(attribute) for attribute in extracted_attributes
     ]
     return attributes
-
-
-def process_entity(entity: Entity) -> dict:
-    attributes_list = [process_attribute(attr) for attr in entity.attributes]
-    return {
-        "name": entity.name,
-        "type": entity.type,
-        "attributes": attributes_list,
-    }
 
 
 def process_attribute(attr: Attribute) -> dict:

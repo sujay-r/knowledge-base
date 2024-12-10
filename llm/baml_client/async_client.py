@@ -50,29 +50,6 @@ class BamlAsyncClient:
 
 
     
-    async def ExtractEntities(
-        self,
-        chunk: str,
-        baml_options: BamlCallOptions = {},
-    ) -> types.KGOutput:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      raw = await self.__runtime.call_function(
-        "ExtractEntities",
-        {
-          "chunk": chunk,
-        },
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-      )
-      return cast(types.KGOutput, raw.cast_to(types, types))
-    
     async def ExtractEntityAttributes(
         self,
         entity: types.EntityBase,chunk: str,
@@ -129,36 +106,6 @@ class BamlStreamClient:
       self.__runtime = runtime
       self.__ctx_manager = ctx_manager
 
-    
-    def ExtractEntities(
-        self,
-        chunk: str,
-        baml_options: BamlCallOptions = {},
-    ) -> baml_py.BamlStream[partial_types.KGOutput, types.KGOutput]:
-      __tb__ = baml_options.get("tb", None)
-      if __tb__ is not None:
-        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
-      else:
-        tb = None
-      __cr__ = baml_options.get("client_registry", None)
-
-      raw = self.__runtime.stream_function(
-        "ExtractEntities",
-        {
-          "chunk": chunk,
-        },
-        None,
-        self.__ctx_manager.get(),
-        tb,
-        __cr__,
-      )
-
-      return baml_py.BamlStream[partial_types.KGOutput, types.KGOutput](
-        raw,
-        lambda x: cast(partial_types.KGOutput, x.cast_to(types, partial_types)),
-        lambda x: cast(types.KGOutput, x.cast_to(types, types)),
-        self.__ctx_manager.get(),
-      )
     
     def ExtractEntityAttributes(
         self,

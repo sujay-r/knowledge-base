@@ -16,40 +16,13 @@ enum DataType {
 
 class Attribute {
     name string @description("Name of the attribute")
-    value string @description("Value of the attribute")
-    data_type DataType
+    value string @description("Value of the attribute. Note that the value has to EXACTLY match the data type")
+    data_type DataType @description("The data type of the attribute value")
 }
 
 class EntityBase {
     name string
     type string
-}
-
-class Entity {
-    base EntityBase
-    attributes Attribute[]
-}
-
-class KGOutput {
-    entities Entity[]
-}
-
-
-function ExtractEntities(chunk: string) -> KGOutput {
-    client GPT4o
-    prompt #"####INSTRUCTION####
-You are an expert state of the art knowledge graph agent.
-Your task is to identify entities and their relationships from a given piece of text.
- 
-####
-
-Here is the piece of text:
-{{ chunk }}
-
-####
-
-{{ ctx.output_format }}
-"#
 }
 
 

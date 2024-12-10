@@ -34,13 +34,6 @@ class Attribute(BaseModel):
     value: Optional[str] = None
     data_type: Optional[types.DataType] = None
 
-class Entity(BaseModel):
-    base: Optional["EntityBase"] = None
-    attributes: List["Attribute"]
-
 class EntityBase(BaseModel):
     name: Optional[str] = None
     type: Optional[str] = None
-
-class KGOutput(BaseModel):
-    entities: List["Entity"]
