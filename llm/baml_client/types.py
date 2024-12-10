@@ -52,9 +52,12 @@ class Attribute(BaseModel):
     data_type: "DataType"
 
 class Entity(BaseModel):
+    base: "EntityBase"
+    attributes: List["Attribute"]
+
+class EntityBase(BaseModel):
     name: str
     type: str
-    attributes: List["Attribute"]
 
 class KGOutput(BaseModel):
     entities: List["Entity"]

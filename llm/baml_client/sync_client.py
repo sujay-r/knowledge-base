@@ -70,6 +70,52 @@ class BamlSyncClient:
       )
       return cast(types.KGOutput, raw.cast_to(types, types))
     
+    def ExtractEntityAttributes(
+        self,
+        entity: types.EntityBase,chunk: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[types.Attribute]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      raw = self.__runtime.call_function_sync(
+        "ExtractEntityAttributes",
+        {
+          "entity": entity,"chunk": chunk,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+      return cast(List[types.Attribute], raw.cast_to(types, types))
+    
+    def ExtractEntityBases(
+        self,
+        chunk: str,
+        baml_options: BamlCallOptions = {},
+    ) -> List[types.EntityBase]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      raw = self.__runtime.call_function_sync(
+        "ExtractEntityBases",
+        {
+          "chunk": chunk,
+        },
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+      return cast(List[types.EntityBase], raw.cast_to(types, types))
+    
 
 
 
@@ -109,6 +155,67 @@ class BamlStreamClient:
         raw,
         lambda x: cast(partial_types.KGOutput, x.cast_to(types, partial_types)),
         lambda x: cast(types.KGOutput, x.cast_to(types, types)),
+        self.__ctx_manager.get(),
+      )
+    
+    def ExtractEntityAttributes(
+        self,
+        entity: types.EntityBase,chunk: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[List[partial_types.Attribute], List[types.Attribute]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      raw = self.__runtime.stream_function_sync(
+        "ExtractEntityAttributes",
+        {
+          "entity": entity,
+          "chunk": chunk,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return baml_py.BamlSyncStream[List[partial_types.Attribute], List[types.Attribute]](
+        raw,
+        lambda x: cast(List[partial_types.Attribute], x.cast_to(types, partial_types)),
+        lambda x: cast(List[types.Attribute], x.cast_to(types, types)),
+        self.__ctx_manager.get(),
+      )
+    
+    def ExtractEntityBases(
+        self,
+        chunk: str,
+        baml_options: BamlCallOptions = {},
+    ) -> baml_py.BamlSyncStream[List[partial_types.EntityBase], List[types.EntityBase]]:
+      __tb__ = baml_options.get("tb", None)
+      if __tb__ is not None:
+        tb = __tb__._tb # type: ignore (we know how to use this private attribute)
+      else:
+        tb = None
+      __cr__ = baml_options.get("client_registry", None)
+
+      raw = self.__runtime.stream_function_sync(
+        "ExtractEntityBases",
+        {
+          "chunk": chunk,
+        },
+        None,
+        self.__ctx_manager.get(),
+        tb,
+        __cr__,
+      )
+
+      return baml_py.BamlSyncStream[List[partial_types.EntityBase], List[types.EntityBase]](
+        raw,
+        lambda x: cast(List[partial_types.EntityBase], x.cast_to(types, partial_types)),
+        lambda x: cast(List[types.EntityBase], x.cast_to(types, types)),
         self.__ctx_manager.get(),
       )
     
