@@ -31,6 +31,8 @@ def extract_attributes_of_entity_from_text(
     return attributes
 
 
+# TODO: Add the type casting back in after introducing another layer of
+# attribute validation and normalization
 def process_attribute(attr: Attribute) -> dict:
     return {
         "name": attr.name,

@@ -44,9 +44,7 @@ def entity_identifier(state: KnowledgeState):
     return {"entity_types": entity_types, "entity_bases": entity_bases}
 
 
-# TODO: Pass the previously extracted attributes to the LLM to maintain some
-# integrity of created attributes. Or introduce an attribute "normalization"
-# stage after the attribute identification.
+# TODO: Introduce another node for attribute normalization and validation
 def entity_attribute_identifier(state: KnowledgeState):
     print("Entered attribute identifier")
     entities = []

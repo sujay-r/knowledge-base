@@ -26,6 +26,11 @@ class EntityBase {
     type string
 }
 
+class Relationship {
+    from EntityBase
+    to EntityBase
+    kind string
+}
 
 function ExtractEntityBases(chunk: string) -> EntityBase[] {
     client GPT4o
@@ -67,6 +72,27 @@ For this task, an attribute is defined as a descriptive characteristic or qualif
 Attributes are also linguistically denoted by (but are not limited to) adjectives, and adjective phrases within a text. They are also generally strong quantified/qualified descriptors of their entities. Attributes also cannot be entire phrases and are generally primitive data types. If a string is required to denote the value of an attribute, it MUST be just one or two words.
 
 Please note that all the extracted attributes MUST STRICTLY be from the given chunk of text only. If there are no attributes present for the given entity in the provided text, the output must correspondingly be blank (while following the structure provided).
+
+####
+
+Here is the entity that you need to find all the attributes for:
+{{ entity }}
+
+Here is the chunk of text in which the entity appears:
+{{ chunk }}
+
+####
+
+{{ ctx.output_format }}
+"#
+}
+
+
+function ExtractRelationships(entities: EntityBase[], chunk: string) -> Relationship[]{
+    client GPT4o
+    prompt #"####INSTRUCTIONS####
+You are an expert in linguistics and have over 20+ years of experience applying linguistic research to real world engineering problems.
+Your task is to identify 
 
 ####
 
